@@ -10,7 +10,8 @@
     <script>
     const buttonClick = () => {
         var input = document.getElementById('message-body');
-        publishMessage(input.value);
+        var handle = document.getElementById('username');
+        publishMessage(handle.value + ":"+ input.value);
         input.value = '';
     };
 
@@ -73,6 +74,12 @@
     </script>
 
     <div>
+        <select name="channel" id="channel">
+            <option value="channel1">hello_world</option>
+            <option value="channel2">Channel 2</option>
+          </select>
+        <input id="username" type="text">
+        <button onclick="buttonClick()">Set Username</button>
         <input id="message-body" type="text">
         <button onclick="buttonClick()">Send</button>
         <div id="messages"></div>
