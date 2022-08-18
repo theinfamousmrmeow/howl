@@ -7,11 +7,14 @@
     <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.7.1.2.js"></script>
 </head>
 <body>
-    <script>
+<script>
     const buttonClick = () => {
         var input = document.getElementById('message-body');
+        var channelSelected = document.getElementById("channel");
+        var channelText = channelSelected.options[channelSelected.selectedIndex].text;
         var handle = document.getElementById('username');
-        publishMessage(handle.value + ":"+ input.value);
+        publishMessage(channelText,handle.value + ":"+ input.value);
+        console.log(channelText);
         input.value = '';
     };
 
@@ -58,11 +61,11 @@
     window.onload = setupPubNub;
 
     // publish message
-    const publishMessage = async (message) => {
+    const publishMessage = async (channel, message) => {
         // With the right payload, you can publish a message, add a reaction to a message,
         // send a push notification, or send a small payload called a signal.
         const publishPayload = {
-            channel : "hello_world",
+            channel : channel,
             message: {
                 title: "greeting",
                 description: message
@@ -71,18 +74,18 @@
         await pubnub.publish(publishPayload);
     }
 
-    </script>
+</script>
 
-    <div>
-        <select name="channel" id="channel">
-            <option value="channel1">hello_world</option>
-            <option value="channel2">Channel 2</option>
-          </select>
-        <input id="username" type="text">
-        <button onclick="buttonClick()">Set Username</button>
-        <input id="message-body" type="text">
-        <button onclick="buttonClick()">Send</button>
-        <div id="messages"></div>
-    </div>
+<div>
+    <select name="channel" id="channel">
+        <option value="channel1">hello_world</option>
+        <option value="channel2">Channel 2</option>
+    </select>
+    <input id="username" type="text">
+    <button onclick="buttonClick()">Set Username</button>
+    <input id="message-body" type="text">
+    <button onclick="buttonClick()">Send</button>
+    <div id="messages"></div>
+</div>
 </body>
 </html>
